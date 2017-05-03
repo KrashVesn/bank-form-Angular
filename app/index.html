@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<div class="content">
+		<form class="form" name="signupForm">
+			<div class="header">
+				<h1>Оплатить</h1>
+			</div>
+			<div class="main" ng-controller="formCtrl">
+				<label class="lable_1">Сумма оплаты</label>
+				<select ng-model="valuta" ng-disabled="active">
+					<option value="$">$</option>
+					<option calue="€">€</option>
+					<option calue="RUB">RUB</option>
+				</select>
+				<input 
+					type="text"
+					ng-class="{noedit: active, yesedit: !active}" 
+					ng-model="summa" 
+ 					ng-readonly="active"
+					onKeyDown="if(event.keyCode == 32) return false;" 
+					required>
+				<button class="edit" ng-click="edit()" formnovalidate>Edit</button>			
+
+				<label>Владелец карты</label>
+				<input 
+					type="text" 
+					class="firstname" 
+					name="firstname" 
+					ng-model="firstname" 
+					onKeyDown="if(event.keyCode == 32) return false;" 
+					placeholder="First name"
+					required>
+
+				<input 
+					type="text" 
+					class="lastname" 
+					name="lastname" 
+					ng-model="lastname" 
+					onKeyDown="if(event.keyCode == 32) return false;" 
+					placeholder="Last name"
+					required>
+					<cardname>
+					<label>Номер карты</label>
+					<input 
+						type="text" 
+						class="cardname" 
+						id="cardname"
+						name="cardname" 
+						ng-model="cardname"
+						ng-class="{ americancard  : cardnumber == 3,
+												visa          : cardnumber == 4,
+												mastercard    : cardnumber == 5,
+												discoverycard : cardnumber == 6 }" 
+						onKeyDown="if(event.keyCode == 32) return false;" 
+						ng-keydown="onKeyDown($event)" 
+						maxlength="20"
+						required>
+				</cardname>
+				<label>Срок действия</label>
+				<select name="MM" class="mm" required>
+					<option value="">Месяц</option>
+					<option value="01">01</option>
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select>
+
+				<select name="YY" class="yy" required>
+					<option value="">Год</option>
+					<option value="2016">2016</option>
+					<option value="2017">2017</option>
+					<option value="2018">2018</option>
+					<option value="2019">2019</option>
+					<option value="2020">2020</option>
+					<option value="2021">2021</option>
+					<option value="2022">2022</option>
+				</select>
+
+				<label>Код безопасности</label>
+				<input 
+					type="text"
+					class="code" 
+					ng-model="code" 
+					onKeyDown="if(event.keyCode == 32) return false;" 
+					minlength="3"
+					maxlength="4"
+					required>
+
+				<div 
+						class="cardcode" 
+						name="cardcode" 
+						ng-model="cardcode">
+					<img 
+						ng-class="{ americancardcode  : cardnumber == 3,
+												visacode          : cardnumber == 4,
+												mastercardcode    : cardnumber == 5,
+												discoverycardcode : cardnumber == 6 }">
+				</div>
+				<button 
+					class="pay"
+					ng-click="pay()">
+				<img class="lock" src="/img/lock.png"> Оплатить {{summa}} {{valuta}} 
+				</button>
+			</form>
+		</div>
+	</div>
+
+
+	<script src="js/angular.js"></script>
+	<script src="js/app.module.js"></script>
+	<script src="js/formController.js"></script>
+	<script src="js/cardnameDirective.js"></script>
+	<!-- <script src="js/nameCardDirective.js"></script> -->
+
+
+</body>
+</html>
